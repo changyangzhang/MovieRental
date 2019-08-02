@@ -1,0 +1,1 @@
+define({  "title": "Movie Rental API",  "url": "https://changyang-movierental.herokuapp.com",  "name": "Movie Rental",  "version": "1.0.0",  "description": "",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2019-08-02T14:45:41.216Z",    "url": "http://apidocjs.com",    "version": "0.17.7"  }});

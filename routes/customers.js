@@ -4,11 +4,45 @@ const {Customer, validate} = require('../models/customer');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 
+/**
+ * @apiDefine Customers Customers endpoints
+ */
+
+/**
+ * @apiDefine AuthParam
+ * @apiParamExample {json} Header-Example:
+ *     {
+ *       "X-Auth-Token": "eyJhbGciOiJIUzI1NdwdiIsInR5cCI6IkpXVCJ9.eyJfaiOiI1ZDQ0M2M1ZWIzYTdhZTAwMTc5OGE2YmUiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY0NzUyOTkwfQ.G50YNshvw_QnQ4vMvYa5M7964134ChAesjUrzrmX_5M"
+ *     }
+ */
+
+/**
+ * @api {GET} /api/customers Get all customers
+ * @apiGroup Customers
+ * @apiUse AuthParam
+ */
 
 router.get('/', async (req, res) => {
     const customers = await Customer.find().sort('name');
     res.send(customers);
 });
+
+/**
+ * @apiDefine CustomerParam
+ * @apiParamExample {json} Request-Example:
+ * {
+ *	"name": "dedwd2we",
+ *	"isGold" : true,
+ *	"phone": "12345"
+ * }
+ */
+
+/**
+ * @api {POST} /api/customers Create a customer
+ * @apiGroup Customers
+ * @apiUse AuthParam
+ * @apiUse CustomerParam
+ */
 
 router.post('/', auth, async (req, res) => {
     const { error } = validate(req.body);
@@ -23,6 +57,13 @@ router.post('/', auth, async (req, res) => {
 
     res.send(customer);
 });
+
+/**
+ * @api {PUT} /api/customers/:id Update a customer
+ * @apiGroup Customers
+ * @apiUse AuthParam
+ * @apiUse CustomerParam
+ */
 
 router.put('/:id', auth, async (req, res) => {
     const { error } = validate(req.body);
@@ -40,6 +81,11 @@ router.put('/:id', auth, async (req, res) => {
     res.send(customer);
 });
 
+/**
+ * @api {DELETE} /api/customers/:id Delete a customer
+ * @apiGroup Customers
+ * @apiUse AuthParam
+ */
 router.delete('/:id', [auth, admin], async (req, res) => {
     const customer = await Customer.findByIdAndRemove(req.params.id);
 
@@ -47,7 +93,11 @@ router.delete('/:id', [auth, admin], async (req, res) => {
 
     res.send(customer);
 });
-
+/**
+ * @api {GET} /api/customers/:id Get a customer
+ * @apiGroup Customers
+ * @apiUse AuthParam
+ */
 router.get('/:id', async (req, res) => {
     const customer = await Customer.findById(req.params.id);
 

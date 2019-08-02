@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://localhost/vidly"
+  "db": "mongodb+srv://movieRental:1234@movierental-glhld.mongodb.net/test?retryWrites=true&w=majority"
 }

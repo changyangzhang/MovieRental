@@ -9,10 +9,44 @@ const auth = require('../middleware/auth');
 
 Fawn.init(mongoose);
 
+/**
+ * @apiDefine Rentals Rentals endpoints
+ */
+
+/**
+ * @apiDefine AuthParam
+ * @apiParamExample {json} Header-Example:
+ *     {
+ *       "X-Auth-Token": "eyJhbGciOiJIUzI1NdwdiIsInR5cCI6IkpXVCJ9.eyJfaiOiI1ZDQ0M2M1ZWIzYTdhZTAwMTc5OGE2YmUiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY0NzUyOTkwfQ.G50YNshvw_QnQ4vMvYa5M7964134ChAesjUrzrmX_5M"
+ *     }
+ */
+
+/**
+ * @api {GET} /api/rentals Get all rentals
+ * @apiGroup Rentals
+ */
+
+
 router.get('/', async (req, res) => {
     const rentals = await Rental.find().sort('-dateOut');
     res.send(rentals);
 });
+
+/**
+ * @apiDefine RentalParam
+ * @apiParamExample {json} Request-Example:
+ * {
+ *	"customerId": "5d386e653a89637a2419e4dc",
+ *	"movieId" : "5d386e653a89637a2419e4dc",
+ * }
+ */
+
+/**
+ * @api {POST} /api/rentals Create a rental
+ * @apiGroup Rentals
+ * @apiUse AuthParam
+ * @apiUse RentalParam
+ */
 
 router.post('/', auth, async (req, res) => {
     const { error } = validate(req.body);
@@ -53,6 +87,10 @@ router.post('/', auth, async (req, res) => {
     res.send(rental);
 });
 
+/**
+ * @api {GET} /api/rentals/:id Get a rental
+ * @apiGroup Rentals
+ */
 router.get('/:id', async (req, res) => {
     const rental = await Rental.findById(req.params.id);
 
