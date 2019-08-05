@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.use('/api/movies', movies);
     app.use('/api/rentals', rentals);
     app.use('/api/auth', auth);
-    app.use('/api', express.static(__dirname + '/apidoc'));
+    app.use('/api', express.static('apidoc'));
 
     app.use(error);
 };
